@@ -1,4 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
+import { SmoothiesService, Smoothie } from '../smoothies.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,21 +8,37 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   private mtitle: string;
+  private mSmoothies: Smoothie[];
 
-  @Input() smoothie;
-
-  constructor() { }
+  constructor(private smoothiesService: SmoothiesService) {
+    smoothiesService.getSmoothies().subscribe( (smoothiesData) => {
+        this.smoothies = smoothiesData;
+        console.log(this.smoothies);
+      }
+    );
+  }
 
   ngOnInit() {
     this.title = 'Welcome to the smoothie world';
-    this.smoothie = 'Banane';
   }
 
+  // setter for title
   set title(newTitle) {
     this.mtitle = newTitle;
   }
 
+  // getter for title
   get title() {
     return this.mtitle;
+  }
+
+  // setter for smoothies
+  set smoothies(newSmoothieList) {
+    this.mSmoothies = newSmoothieList;
+  }
+
+  // getter for smoothies
+  get smoothies() {
+    return this.mSmoothies;
   }
 }

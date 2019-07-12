@@ -1,7 +1,36 @@
-<app-header></app-header>
-<mat-grid-list cols="2" rowHeight="2:1">
-        <mat-grid-tile>1</mat-grid-tile>
-        <mat-grid-tile>2</mat-grid-tile>
-        <mat-grid-tile>3</mat-grid-tile>
-        <mat-grid-tile>4</mat-grid-tile>
-      </mat-grid-list>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    
+    <input type="text" placeholder="Filter recipes" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<mat-grid-list cols="3" rowHeight="500">
+  <ng-container *ngFor="let smoothie of smoothies" >
+    
+    <mat-grid-tile *ngIf="selected.has(smoothie._id) === true" >       
+      <mat-card class="example-card" >
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{smoothie.title}}</mat-card-title>
+          <mat-card-subtitle>{{smoothie.description}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{smoothie.photo[0].path}}" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <p>{{smoothie.steps[0].stepText}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <!-- <button mat-button [routerLink]="['/recipe/id/', smoothie._id]"> Detail</button> -->
+          <button mat-button routerLink="{{'/recipe/id/' + smoothie._id}}"> Detail</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </ng-container>
+</mat-grid-list>

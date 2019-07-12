@@ -1,0 +1,20 @@
+
+<mat-card *ngIf="smoothie" class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{smoothie.title}}</mat-card-title>
+        <mat-card-subtitle>{{smoothie.description}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{smoothie.photo[0].path}}" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+        <p>Ingredients: </p>
+        <p *ngFor="let item of smoothie.ingredients">{{item.nom}}:{{item.quantity}}</p>
+        <br>
+        <p>Steps: </p>
+        <p *ngFor="let step of smoothie.steps">{{step.stepText}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+    </mat-card-actions>
+</mat-card>

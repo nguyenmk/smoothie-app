@@ -1,0 +1,22 @@
+.mat-card-image {
+    max-width: 200px;
+}
+
+.mat-card-header {
+    background-color: purple;
+    color: white;
+}
+
+.mat-card-subtitle {
+    color: white;
+}
+
+.mat-card {
+    margin: 5px;
+    padding: 0;
+}
+
+.mat-card-image {
+    margin: auto 0;
+    display:block;
+}
