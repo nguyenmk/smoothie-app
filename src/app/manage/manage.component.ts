@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SmoothiesService } from '../smoothies.service';
 
 @Component({
   selector: 'app-manage',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageComponent implements OnInit {
 
-  constructor() { }
+  public smoothies;
+
+  constructor(private smoothiesService: SmoothiesService) { }
 
   ngOnInit() {
+    this.smoothiesService.getSmoothies().subscribe( (smoothiesData) => {
+        this.smoothies = smoothiesData;
+        console.log(this.smoothies);
+      }
+    );
   }
 
 }

@@ -19,6 +19,8 @@ import { ManageComponent } from './manage/manage.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTabsModule} from '@angular/material/tabs';
+import { RecipeActionComponent } from './recipe-action/recipe-action.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     SmoothiesComponent,
     RecipeComponent,
     ContactComponent,
-    ManageComponent
+    ManageComponent,
+    RecipeActionComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatAutocompleteModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

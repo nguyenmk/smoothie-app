@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SmoothiesService } from '../smoothies.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe',
@@ -12,14 +9,18 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class RecipeComponent implements OnInit {
   public smoothie;
+  @Input() recipeId: string;
 
   constructor(private smoothiesService: SmoothiesService, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    const smoothieId = this.route.snapshot.paramMap.get('id');
-    this.smoothiesService.getSmoothieById(smoothieId).subscribe((data) => {
+    if (!this.recipeId) {
+      this.recipeId = this.route.snapshot.paramMap.get('id');
+    }
+    console.log(this.recipeId);
+    this.smoothiesService.getSmoothieById(this.recipeId).subscribe((data) => {
       this.smoothie = data;
     });
   }

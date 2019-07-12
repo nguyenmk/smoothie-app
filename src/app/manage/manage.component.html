@@ -1,1 +1,27 @@
-<h1>Management</h1>
+<ng-template #manage>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let smoothie of smoothies">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{smoothie.title}}
+                </mat-panel-title>            
+            </mat-expansion-panel-header>
+            <mat-tab-group>
+                <mat-tab label="View" > <app-recipe [recipeId]="smoothie._id"></app-recipe> </mat-tab>
+                <mat-tab label="Edit"> <app-recipe-action [action]="edit" recipeId="{{smoothie._id}}"></app-recipe-action> </mat-tab>
+                <mat-tab label="Delete"> Delete </mat-tab>
+                <mat-tab label="Insert after"> <app-recipe-action [action]="add"></app-recipe-action>  </mat-tab>
+            </mat-tab-group>
+            <mat-form-field>
+                <input matInput placeholder="First name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Age">
+            </mat-form-field>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="smoothies ? manage: ''"></ng-container>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -42,5 +42,17 @@ export class SmoothiesService {
   getSmoothieByTitle(fruit): Observable<Smoothie[]> {
     const getUrl = `${this.apiUrl}/catalog/recipe/fruit/${fruit}`;
     return this.http.get<Smoothie[]>(getUrl);
+  }
+
+  addSmoothie(data): Observable<Smoothie> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        //'Authorization': 'my-auth-token'
+      })
+    };
+    const url = `${this.apiUrl}/catalog/recipe/add`;
+    return this.http.post<Smoothie>(url, data, httpOptions);
+
   }
 }

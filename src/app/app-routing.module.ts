@@ -6,6 +6,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { SmoothiesComponent } from './smoothies/smoothies.component';
 import { ContactComponent } from './contact/contact.component';
+import { ManageComponent } from './manage/manage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'manage',
+    component: ManageComponent
   }
 ];
 

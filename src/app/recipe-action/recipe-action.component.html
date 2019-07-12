@@ -1,0 +1,64 @@
+<!-- <ng-template #recipeAction> -->
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div>
+        <h3> Title</h3>
+        <input type="text" formControlName="title" required>
+    </div>
+
+    <div formArrayName="ingredients">
+        <h3>Ingredients</h3> <button (click)="addIngredient()">Add ingredient</button>
+        <div *ngFor="let ingredient of ingredients.controls; let ingredientIndex=index" [formGroupName]="ingredientIndex">
+            <label> Name: <input type="text" formControlName="nom"> </label>
+            <label> Quantity: <input type="text" formControlName="quantity"> </label>
+        </div>
+    </div>
+
+    <div formGroupName="features">
+        <h3>Features</h3>
+        <label> Cost: <input type="text" formControlName="cost"> </label>
+        <label> PrepareTime: <input type="text" formControlName="prepareTime"> </label>
+    </div>
+
+    <div>
+        <h3>Advice</h3>
+        <input type="text" formControlName="advice">
+    </div>
+    
+    <div>
+        <h3>Description</h3>
+        <input type="text" formControlName="description">
+    </div>
+    
+    <div formArrayName="steps">
+        <h3>Steps</h3> <button (click)="addStep()">Add step</button>
+        <div *ngFor="let step of steps.controls; let stepIndex=index" [formGroupName]="stepIndex">
+            <label> Step: <input type="text" formControlName="stepText"> </label>
+        </div>
+    </div>
+
+    <div formGroupName="photo">
+        <h3>Photo</h3>
+        <label> Title: <input type="text" formControlName="title"> </label>
+        <label> Path: <input type="text" formControlName="path"> </label>
+        <label> Path: <input type="text" formControlName="description"> </label>
+    </div>
+
+    <button type="submit" [disabled]="!profileForm.valid" >Submit</button>
+</form>
+
+<hr>
+
+
+<p>
+Form Value: {{ profileForm.value | json }}
+</p>
+
+
+<p>
+Form Status: {{ profileForm.status }}
+</p>
+
+<!-- 
+</ng-template>
+
+<ng-container *ngTemplateOutlet="recipeAction ? manage: ''"></ng-container> -->

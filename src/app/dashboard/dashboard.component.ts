@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
   constructor(private smoothiesService: SmoothiesService) {
     smoothiesService.getSmoothies().subscribe( (smoothiesData) => {
         this.smoothies = smoothiesData;
-        console.log(this.smoothies);
       }
     );
   }
