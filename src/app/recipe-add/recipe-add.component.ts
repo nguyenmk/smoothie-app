@@ -65,34 +65,39 @@ export class RecipeAddComponent  implements OnInit {
       this.smoothiesService.getSmoothieById(this.recipeId).subscribe((data: Smoothie) => {
         this.smoothie = data;
 
-        const ingredientsForm = this.profileForm.get("ingredients") as FormArray;
-        for (let it of this.ingredients.controls) {
-          console.log("it", it);
-        }
-        const stepsForm = this.profileForm.get("steps") as FormArray;
-        for (let ingredient of this.smoothie.ingredients) {this.addIngredient()};
+        
+        this.ingredients.clear();
+        for (const ingredient of this.smoothie.ingredients) {this.addIngredient(ingredient); }
 
-        for (let step of this.smoothie.steps) {this.addStep()};
+        this.steps.clear();
+        for (const step of this.smoothie.steps) {this.addStep(step); }
+        
         this.profileForm.patchValue(this.smoothie);
+        
       });
 
     }
   }
 
-  addIngredient() {
-    this.ingredients.push(
-      this.fb.group({ nom: '', quantity: '' })
-    );
+  addIngredient(ingredient = null) {
+    if (ingredient === null) {
+      this.ingredients.push( this.fb.group({ nom: '', quantity: '' }) );
+    } else {
+      this.ingredients.push(this.fb.group(ingredient));
+    }
+
   }
 
   removeIngredientAt(index) {
     this.ingredients.removeAt(index);
   }
 
-  addStep() {
-    this.steps.push(
-      this.fb.group({ stepText: '' })
-    );
+  addStep(step = null) {
+    if (step === null) {
+      this.steps.push( this.fb.group({ stepText: '' }) );
+    } else {
+      this.steps.push(this.fb.group(step));
+    }
   }
 
   removeStepAt(index) {
@@ -102,17 +107,11 @@ export class RecipeAddComponent  implements OnInit {
   onSubmit() {
     this.smoothiesService.addSmoothie(this.profileForm.value).subscribe((returnData) => {
       const smoothie: Smoothie = returnData;
-      console.log('smoothie', smoothie);
     }, errors => {
       console.log(errors);
     });
-    console.log(this.profileForm.value);
     // TODO: Use EventEmitter with form value
     //console.warn(this.profileForm.value);
-  }
-
-  checkProfileForm() {
-    console.log("profileform valid", this.profileForm.valid);
   }
 
   visible = true;
@@ -128,14 +127,14 @@ export class RecipeAddComponent  implements OnInit {
     // Add our fruit
     if ((value || '').trim()) {
       const items = value.trim().split(':');
-      if (items.length > 0) {
+      if (items.length === 2) {
         const text = items[0];
         let qty = '';
         if (items.length > 1) {
           qty = items[1];
         }
-        this.ingredients.push(
-          this.fb.group({ nom: text.trim(), quantity: qty.trim() })
+        this.addIngredient(
+          { nom: text.trim(), quantity: qty.trim()}
         );
       }
     }

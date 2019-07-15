@@ -22,21 +22,6 @@
         </mat-chip-list>
     </mat-form-field>
 
-    <div class="group" formArrayName="ingredients">
-        <div><button mat-button color="primary" (click)="addIngredient()">Add ingredient</button></div> 
-        <div *ngFor="let ingredient of ingredients.controls; let ingredientIndex=index" [formGroupName]="ingredientIndex">
-            <mat-form-field>
-                <input matInput placeholder="Name" formControlName="nom">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="Quantity" formControlName="quantity">
-            </mat-form-field>
-            <span>
-                <button mat-button color="primary" (click)="removeIngredientAt(ingredientIndex)">Delete</button>
-            </span>            
-        </div>
-    </div>
-
     <div class="group" formGroupName="features">
         <h3>Features</h3>
         <mat-form-field>
@@ -84,7 +69,7 @@
         </mat-form-field>
     </div>
     <div class="group">
-        <button mat-raised-button color="primary" type="submit" [disabled]="checkProfileForm()?true:!profileForm.valid" >Submit</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!profileForm.valid" >Submit</button>
     </div>
 </form>
 

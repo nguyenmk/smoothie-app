@@ -35,11 +35,8 @@ export class RecipeActionComponent implements OnInit {
       let to = toValue;
       if (from > this.length) {from = this.length; }
       if (to > this.length) {to = this.length; }
-      console.log("from", from);
-      console.log("to", to);
       this.smoothiesService.getSmoothiesShort(from, to).subscribe((listData) => {
         this.smoothies = listData;
-        console.log("smoothies length", this.smoothies.length);
       });
     });
 
