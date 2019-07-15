@@ -7,6 +7,21 @@
         </mat-form-field>
     </div>
 
+    <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList aria-label="Ingredients">
+            <mat-chip *ngFor="let ingredient of ingredients.controls; let ingreIndex = index;" [selectable]="selectable"
+                    [removable]="removable" (removed)="removeIngredientAt(ingreIndex)">
+            {{ingredient.value.nom}}:{{ingredient.value.quantity}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New fruit..."
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+    </mat-form-field>
+
     <div class="group" formArrayName="ingredients">
         <div><button mat-button color="primary" (click)="addIngredient()">Add ingredient</button></div> 
         <div *ngFor="let ingredient of ingredients.controls; let ingredientIndex=index" [formGroupName]="ingredientIndex">

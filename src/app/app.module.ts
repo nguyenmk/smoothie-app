@@ -23,7 +23,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { RecipeActionComponent } from './recipe-action/recipe-action.component';
 import { RecipeAddComponent } from './recipe-add/recipe-add.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import {MatChipsModule} from '@angular/material/chips';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +55,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatTabsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
