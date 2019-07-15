@@ -12,7 +12,12 @@ export interface Smoothie {
   advice?: string;
   description: string;
   steps: [ { stepText: string } ];
-  photo?: [ { title?: string; path?: string; description?: string} ];
+  photo?: { title?: string; path?: string; description?: string};
+}
+
+export interface SmoothieShort {
+  _id: string;
+  title: string;
 }
 
 @Injectable({
@@ -31,6 +36,12 @@ export class SmoothiesService {
   getSmoothies(): Observable<Smoothie[]> {
     const smoothieListUrl = `${this.apiUrl}/catalog/list`;
     return this.http.get<Smoothie[]>(smoothieListUrl);
+  }
+
+
+  getSmoothiesShort(from, to): Observable<SmoothieShort[]> {
+    const smoothieListUrl = `${this.apiUrl}/catalog/listShort/${from}/${to}`;
+    return this.http.get<SmoothieShort[]>(smoothieListUrl);
   }
 
   // Get one smoothie
@@ -54,5 +65,16 @@ export class SmoothiesService {
     const url = `${this.apiUrl}/catalog/recipe/add`;
     return this.http.post<Smoothie>(url, data, httpOptions);
 
+  }
+
+  removeSmoothie(id): Observable<{}> {
+    const url = `${this.apiUrl}/catalog/remove/${id}`;
+    console.log(url);
+    return this.http.delete(url);
+  }
+
+  getNumRecords(): Observable<any> {
+    const url = `${this.apiUrl}/catalog/count`;
+    return this.http.get(url);
   }
 }

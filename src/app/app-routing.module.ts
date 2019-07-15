@@ -7,6 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { SmoothiesComponent } from './smoothies/smoothies.component';
 import { ContactComponent } from './contact/contact.component';
 import { ManageComponent } from './manage/manage.component';
+import { RecipeAddComponent } from './recipe-add/recipe-add.component';
+import { RecipeActionComponent } from './recipe-action/recipe-action.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,6 +35,18 @@ const routes: Routes = [
   {
     path: 'manage',
     component: ManageComponent
+  },
+  {
+    path: 'add/:id',
+    component: RecipeAddComponent
+  },
+  {
+    path: 'add',
+    component: RecipeAddComponent
+  },
+  {
+    path: 'action',
+    component: RecipeActionComponent
   }
 ];
 

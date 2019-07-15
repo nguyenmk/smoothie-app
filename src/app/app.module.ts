@@ -21,6 +21,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTabsModule} from '@angular/material/tabs';
 import { RecipeActionComponent } from './recipe-action/recipe-action.component';
+import { RecipeAddComponent } from './recipe-add/recipe-add.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { RecipeActionComponent } from './recipe-action/recipe-action.component';
     RecipeComponent,
     ContactComponent,
     ManageComponent,
-    RecipeActionComponent
+    RecipeActionComponent,
+    RecipeAddComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { RecipeActionComponent } from './recipe-action/recipe-action.component';
     MatAutocompleteModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

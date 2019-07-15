@@ -19,7 +19,7 @@ export class RecipeComponent implements OnInit {
     if (!this.recipeId) {
       this.recipeId = this.route.snapshot.paramMap.get('id');
     }
-    console.log(this.recipeId);
+
     this.smoothiesService.getSmoothieById(this.recipeId).subscribe((data) => {
       this.smoothie = data;
     });

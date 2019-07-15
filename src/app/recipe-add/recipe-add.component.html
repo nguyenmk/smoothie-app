@@ -1,0 +1,91 @@
+<!-- <ng-template #recipeAdd> -->
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="group">
+        <mat-form-field>
+            <input matInput placeholder="Title" formControlName="title">
+        </mat-form-field>
+    </div>
+
+    <div class="group" formArrayName="ingredients">
+        <div><button mat-button color="primary" (click)="addIngredient()">Add ingredient</button></div> 
+        <div *ngFor="let ingredient of ingredients.controls; let ingredientIndex=index" [formGroupName]="ingredientIndex">
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="nom">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Quantity" formControlName="quantity">
+            </mat-form-field>
+            <span>
+                <button mat-button color="primary" (click)="removeIngredientAt(ingredientIndex)">Delete</button>
+            </span>            
+        </div>
+    </div>
+
+    <div class="group" formGroupName="features">
+        <h3>Features</h3>
+        <mat-form-field>
+            <input matInput placeholder="Cost" formControlName="cost" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Prepared time" formControlName="prepareTime" required>
+        </mat-form-field>
+    </div>
+
+    <div class="group">
+        <mat-form-field>
+            <input matInput placeholder="Advice" formControlName="advice" required>
+        </mat-form-field>
+    </div>
+    
+    <div class="group">
+        <mat-form-field>
+            <input matInput placeholder="Description" formControlName="description" required>
+        </mat-form-field>
+    </div>
+    
+    <div class="group" formArrayName="steps">
+        <div><button mat-button color="primary" (click)="addStep()">Add step</button> </div>
+        <div *ngFor="let step of steps.controls; let stepIndex=index" [formGroupName]="stepIndex">
+            <mat-form-field>
+                <input matInput placeholder="step text" formControlName="stepText" required>
+            </mat-form-field>
+            <span>
+                <button mat-button color="primary" (click)="removeStepAt(stepIndex)">Delete</button>
+            </span>
+        </div>
+    </div>
+
+    <div class="group" formGroupName="photo">
+        <h3>Photo</h3>
+        <mat-form-field>
+            <input matInput placeholder="Title" formControlName="title" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Path" formControlName="path" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Description" formControlName="description" required>
+        </mat-form-field>
+    </div>
+    <div class="group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="checkProfileForm()?true:!profileForm.valid" >Submit</button>
+    </div>
+</form>
+
+<hr>
+
+
+<p>
+Form Value: {{ profileForm.value | json }}
+</p>
+
+
+<p>
+Form Status: {{ profileForm.status }}
+</p>
+
+<!-- 
+</ng-template>
+
+<ng-container *ngTemplateOutlet="recipeAdd ? manage: ''"></ng-container> -->

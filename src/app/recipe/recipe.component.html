@@ -5,7 +5,7 @@
         <mat-card-title>{{smoothie.title}}</mat-card-title>
         <mat-card-subtitle>{{smoothie.description}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="{{smoothie.photo[0].path}}" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="{{smoothie.photo.path}}" alt="Photo of a Shiba Inu">
     <mat-card-content>
         <p>Ingredients: </p>
         <p *ngFor="let item of smoothie.ingredients">{{item.nom}}:{{item.quantity}}</p>

@@ -15,22 +15,7 @@
   <ng-container *ngFor="let smoothie of smoothies" >
     
     <mat-grid-tile *ngIf="selected.has(smoothie._id) === true" >       
-      <mat-card class="example-card" >
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>{{smoothie.title}}</mat-card-title>
-          <mat-card-subtitle>{{smoothie.description}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="{{smoothie.photo[0].path}}" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-          <p>{{smoothie.steps[0].stepText}}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <!-- <button mat-button [routerLink]="['/recipe/id/', smoothie._id]"> Detail</button> -->
-          <button mat-button routerLink="{{'/recipe/id/' + smoothie._id}}"> Detail</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
-      </mat-card>
+      <app-recipe [recipeId]="smoothie._id"></app-recipe>
     </mat-grid-tile>
   </ng-container>
 </mat-grid-list>

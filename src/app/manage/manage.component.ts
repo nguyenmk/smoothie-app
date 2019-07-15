@@ -13,11 +13,7 @@ export class ManageComponent implements OnInit {
   constructor(private smoothiesService: SmoothiesService) { }
 
   ngOnInit() {
-    this.smoothiesService.getSmoothies().subscribe( (smoothiesData) => {
-        this.smoothies = smoothiesData;
-        console.log(this.smoothies);
-      }
-    );
+
   }
 
 }

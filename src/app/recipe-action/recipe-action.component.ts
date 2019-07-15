@@ -1,88 +1,60 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, Validators, FormArray, ControlContainer } from '@angular/forms';
-import { SmoothiesService, Smoothie } from '../smoothies.service';
-
+import { Component, OnInit, Input} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import { SmoothieShort, SmoothiesService } from '../smoothies.service';
 @Component({
   selector: 'app-recipe-action',
   templateUrl: './recipe-action.component.html',
   styleUrls: ['./recipe-action.component.css']
 })
 
-export class RecipeActionComponent {
-  @Input() action = "add";
-  @Input() recipeId:string;
+export class RecipeActionComponent implements OnInit {
+   // MatPaginator Inputs
+  length = 100;
+  pageSize = 10;
+  pageIndex = 0;
 
-  profileForm = this.fb.group({
-    title: ['', Validators.required],
-    ingredients: this.fb.array([
-      this.fb.group({
-        nom: [''],
-        quantity: ['']
-      })
-    ]),
-    features: this.fb.group({
-      cost: [''],
-      prepareTime: ['']
-    }),
-    advice: [''],
-    description: [''],
-    steps: this.fb.array([
-      this.fb.group({
-        stepText: ['']
-      })
-    ]),
-    photo: this.fb.group({
-      title: [''],
-      path: [''],
-      description: ['']
-    }),
-  });
+  // MatPaginator Output
+  pageEvent: PageEvent;
 
-  get ingredients() {
-    return this.profileForm.get('ingredients') as FormArray;
-  }
-  get steps() {
-    return this.profileForm.get('steps') as FormArray;
+  smoothies: SmoothieShort[];
+
+  constructor(private smoothiesService: SmoothiesService) {
+
   }
 
-  constructor(private fb: FormBuilder, private smoothiesService: SmoothiesService) { }
+  ngOnInit() {
+    let from = this.pageIndex * this.pageSize + 1;
+    let to = from + this.pageSize - 1;
+    this.getSmoothies(from, to);
+  }
 
-
-  updateProfile() {
-    this.profileForm.patchValue({
-      firstName: 'Nancy',
-      address: {
-        street: '123 Drew Street'
-      }
+  getSmoothies(fromValue, toValue) {
+    this.smoothiesService.getNumRecords().subscribe((data) => {
+      this.length = data.countRecords;
+      let from = fromValue;
+      let to = toValue;
+      if (from > this.length) {from = this.length; }
+      if (to > this.length) {to = this.length; }
+      console.log("from", from);
+      console.log("to", to);
+      this.smoothiesService.getSmoothiesShort(from, to).subscribe((listData) => {
+        this.smoothies = listData;
+        console.log("smoothies length", this.smoothies.length);
+      });
     });
+
   }
 
-  addIngredient() {
-    this.ingredients.push(
-      this.fb.group({
-        nom: '',
-        quantity: ''
-      })
-    );
-  }
-
-  addStep() {
-    this.steps.push(
-      this.fb.group({
-        stepText: ''
-      })
-    );
-    console.log('steps', this.steps.controls);
-  }
-
-  onSubmit() {
-    this.smoothiesService.addSmoothie(this.profileForm.value).subscribe((returnData) => {
-      const smoothie: Smoothie = returnData;
-      console.log('smoothie', smoothie);
+  removeSmoothie(id, smoothieIndex) {
+    this.smoothiesService.removeSmoothie(id).subscribe(() => {
+      console.log('success');
     });
-    console.log(this.profileForm.value);
-    // TODO: Use EventEmitter with form value
-    //console.warn(this.profileForm.value);
+    this.smoothies.splice(smoothieIndex, 1);
   }
 
+  updateView(event?:PageEvent) {
+    let from = event.pageIndex * event.pageSize + 1;
+    let to = from + event.pageSize - 1;
+    this.getSmoothies(from, to);
+  }
 }
